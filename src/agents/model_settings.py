@@ -92,10 +92,7 @@ class ModelSettings:
     """
 
     truncation: Literal["auto", "disabled"] | None = None
-    """The truncation strategy to use when calling the model.
-    See [Responses API documentation](https://platform.openai.com/docs/api-reference/responses/create#responses_create-truncation)
-    for more details.
-    """
+    """The truncation strategy to use when calling the model."""
 
     max_tokens: int | None = None
     """The maximum number of output tokens to generate."""

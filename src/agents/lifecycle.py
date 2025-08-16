@@ -1,9 +1,8 @@
-from typing import Any, Generic, Optional
+from typing import Any, Generic
 
 from typing_extensions import TypeVar
 
 from .agent import Agent, AgentBase
-from .items import ModelResponse, TResponseInputItem
 from .run_context import RunContextWrapper, TContext
 from .tool import Tool
 
@@ -14,25 +13,6 @@ class RunHooksBase(Generic[TContext, TAgent]):
     """A class that receives callbacks on various lifecycle events in an agent run. Subclass and
     override the methods you need.
     """
-
-    async def on_llm_start(
-        self,
-        context: RunContextWrapper[TContext],
-        agent: Agent[TContext],
-        system_prompt: Optional[str],
-        input_items: list[TResponseInputItem],
-    ) -> None:
-        """Called just before invoking the LLM for this agent."""
-        pass
-
-    async def on_llm_end(
-        self,
-        context: RunContextWrapper[TContext],
-        agent: Agent[TContext],
-        response: ModelResponse,
-    ) -> None:
-        """Called immediately after the LLM call returns for this agent."""
-        pass
 
     async def on_agent_start(self, context: RunContextWrapper[TContext], agent: TAgent) -> None:
         """Called before the agent is invoked. Called each time the current agent changes."""
@@ -124,25 +104,6 @@ class AgentHooksBase(Generic[TContext, TAgent]):
         result: str,
     ) -> None:
         """Called after a tool is invoked."""
-        pass
-
-    async def on_llm_start(
-        self,
-        context: RunContextWrapper[TContext],
-        agent: Agent[TContext],
-        system_prompt: Optional[str],
-        input_items: list[TResponseInputItem],
-    ) -> None:
-        """Called immediately before the agent issues an LLM call."""
-        pass
-
-    async def on_llm_end(
-        self,
-        context: RunContextWrapper[TContext],
-        agent: Agent[TContext],
-        response: ModelResponse,
-    ) -> None:
-        """Called immediately after the agent receives the LLM response."""
         pass
 
 
